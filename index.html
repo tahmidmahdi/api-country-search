@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="containers" class="container">
+        <input id="read" class='input' type="search" name="" id="" placeholder="Enter the Country Name">
+        <br>
+        <br>
+        <button id="btn" type="submit" class='btn'>Submit</button>
+    </div>
+    <div id="outputs" class="output">
+        <h3 id="country">aaa</h3>
+        <p>Domain is: <span id="topDomain"></span></p>
+        <p>celling Codes <span id="callingCodes"> </span></p>
+        <p>Area <span id="area"></span> sq km</p>
+        <img id="flag" src="" alt="">
+    </div>
+
+    <script>
+        document.getElementById('btn').addEventListener('click', function () {
+            const countryName = document.getElementById('read').value;
+            fetch('https://restcountries.eu/rest/v2/name/' + countryName)
+                .then(res => res.json())
+                .then(data => {
+                    const display = document.getElementById('containers')
+                    display.style.display = 'none';
+
+                    const country = data[0].name;
+                    const countryPush = document.getElementById('country').innerText = country;
+                    const display1 = document.getElementById('outputs')
+                    display1.style.display = 'block';
+
+                    const domain = data[0].topLevelDomain;
+                    const domainPush = document.getElementById('topDomain').innerText = domain;
+
+                    const cell = data[0].callingCodes;
+                    const cellPush = document.getElementById('callingCodes').innerText = cell;
+
+                    const area = data[0].area;
+                    const areaPush = document.getElementById('area').innerText = area;
+
+                    const alpha = data[0].alpha3Code;
+                    const alphaCode = alpha.toLowerCase();
+                    
+                    const image = document.getElementById('flag').src = 'https://restcountries.eu/data/'+alphaCode+'.svg'
+
+
+
+                    
+
+                })
+            
+
+        })
+
+    </script>
+</body>
+
+</html>
